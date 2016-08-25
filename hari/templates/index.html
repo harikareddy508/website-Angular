@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+{% raw %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--Including all libraries-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.css">
+
+    <!--Including application css-->
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body ng-app="sampleApp">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <span class="glyphicon glyphicon-home"></span>
+            </a>
+        </div>
+        <div class="container-fluid">
+            <h3>Awesome App</h3>
+        </div>
+    </div>
+</nav>
+<div class="fluid-container container" ng-controller="MainController">
+    <div ng-show="showSuccessMessage" class="animated-alert alert alert-success" role="alert">Appointment {{appointmentId}} is added!</div>
+    <!--Using data attributes to trigger modal appearance and disappearing-->
+    <div class="modal fade" id="new-appointment" tabindex="-1" role="dialog"
+         aria-labelledby="new-appointment">
+        <div class="modal-dialog" role="document">
+            <div class="modal-header">
+                <h3>Add New Appointment</h3>
+            </div>
+            <div class="modal-content">
+                <div class="form-group col-sm-12 col-xs-12 col-lg-12 col-md-12">
+                    <label for="date">Appointment Date</label>
+                    <div class="input-group date" data-provide="datepicker" data-date-format="mm-dd-yyyy">
+                        <input id="date" name="date" type="text" class="form-control" ng-model="appointment.date">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-xs-12 col-lg-12 col-md-12">
+                    <label for="time">Appointment Time</label>
+                    <div class="input-group bootstrap-timepicker timepicker">
+                        <input name="time" id="time" type="text" class="form-control input-small"
+                               ng-model="appointment.time">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-xs-12 col-lg-12 col-md-12">
+                    <label for="description">Description</label>
+                    <div>
+                            <textarea class="form-control" id="description" name="description" type="text"
+                                      placeholder="Type in some Description"
+                                      ng-model="appointment.description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 modal-footer">
+                <button data-dismiss="modal" ng-click="createAppointment(appointment)" id="add"
+                        class="btn btn-primary col-md-6 col-lg-5 col-sm-5 col-xs-12">Add
+                </button>
+                <span class="col-sm-2 col-md-6 col-lg-2 col-sm-5 col-xs-12"></span>
+                <!--data-dismiss will make modal disappear-->
+                <button id="cancel" data-dismiss="modal" type="reset"
+                        class="btn btn-default col-md-6 col-lg-5 col-sm-5 col-xs-12">Cancel
+                </button>
+            </div>
+            <div class="spacer" style="clear: both;"></div>
+        </div>
+    </div>
+
+    <!--Appoinment Add Button-->
+    <div class="appointments">
+        <div class="appointment-options">
+            <div id="new-div" class="form-group pull-left">
+                <div class="input-group">
+                    <button id="new" ype="text" data-toggle="modal" data-target="#new-appointment" class="form-control">
+                        <span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+            <!--Appointment search-->
+            <div id="search-div" class="form-group col-sm-12 col-xs-12 col-lg-6 col-md-6 pull-right">
+                <div class="input-group search-group ">
+                    <input id="search" ype="text" class="form-control" ng-model="searchText" ng-change="getAppointments(searchText);">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Appointments table-->
+        <table id="table" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody id="appointments">
+            <tr ng-repeat="appointment in appointments">
+                <td>{{appointment.date}}</td>
+                <td>{{appointment.time}}</td>
+                <td>{{appointment.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--Including javascript libraries-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js"></script>
+    <!--Including app specific javascript libraries-->
+    <script src="js/app.js" type="text/javascript"></script>
+</body>
+{% endraw %}
+</html>

@@ -1,0 +1,62 @@
+.table-bordered {
+    margin-top: 1rem;
+}
+
+.appointment-options {
+    margin-top: 1rem;
+}
+
+#search-div {
+    padding: 0;
+}
+
+form, #search-div {
+    max-width: 50rem !important;
+}
+
+form {
+    margin: 0 auto;
+    clear: both;
+}
+
+.container-fluid > h3 {
+    text-align: center;
+}
+
+.modal-dialog {
+    background-color: white;
+    border-radius: 2rem;
+}
+
+.modal-content {
+    border: 0;
+}
+
+.bootstrap-timepicker-widget {
+    z-index: 10000 !important;
+}
+
+.navbar-default, #new, .btn-primary {
+    background-color: rgb(0, 188, 212) !important;
+    color: white;
+}
+
+.modal-header > h3 {
+    color: rgb(0, 188, 212) !important;
+}
+
+.navbar-default .navbar-brand {
+    color: white !important;
+}
+
+.modal-header {
+    border:0 !important;
+}
+
+.animated-alert {
+    -webkit-transition: display 1s ease-in-out;
+    -moz-transition: display 1s ease-in-out;
+    -ms-transition: display 1s ease-in-out;
+    -o-transition: display 1s ease-in-out;
+    transition: display 1s ease-in-out;
+}
